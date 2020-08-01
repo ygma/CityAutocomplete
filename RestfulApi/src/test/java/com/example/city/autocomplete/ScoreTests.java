@@ -1,8 +1,8 @@
-package com.example.CityAutocomplete;
+package com.example.city.autocomplete;
 
-import com.example.CityAutocomplete.controller.SuggestionCity;
-import com.example.CityAutocomplete.controller.SuggestionResponse;
-import com.example.CityAutocomplete.service.City;
+import com.example.city.autocomplete.controller.SuggestionCity;
+import com.example.city.autocomplete.controller.SuggestionResponse;
+import com.example.city.autocomplete.service.City;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;

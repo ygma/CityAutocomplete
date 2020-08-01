@@ -1,4 +1,4 @@
-package com.example.CityAutocomplete;
+package com.example.city.autocomplete;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

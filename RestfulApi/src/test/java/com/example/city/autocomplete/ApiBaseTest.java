@@ -1,8 +1,8 @@
-package com.example.CityAutocomplete;
+package com.example.city.autocomplete;
 
-import com.example.CityAutocomplete.service.City;
-import com.example.CityAutocomplete.service.load.CityLoader;
-import com.example.CityAutocomplete.service.search.CitySearch;
+import com.example.city.autocomplete.service.City;
+import com.example.city.autocomplete.service.load.CityLoader;
+import com.example.city.autocomplete.service.search.CitySearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

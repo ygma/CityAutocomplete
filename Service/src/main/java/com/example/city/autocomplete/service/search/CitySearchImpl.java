@@ -1,7 +1,7 @@
-package com.example.CityAutocomplete.service.search;
+package com.example.city.autocomplete.service.search;
 
-import com.example.CityAutocomplete.service.City;
-import com.example.CityAutocomplete.service.load.CityLoader;
+import com.example.city.autocomplete.service.City;
+import com.example.city.autocomplete.service.load.CityLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

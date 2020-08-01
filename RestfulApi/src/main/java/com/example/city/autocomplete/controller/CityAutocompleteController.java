@@ -1,6 +1,6 @@
-package com.example.CityAutocomplete.controller;
+package com.example.city.autocomplete.controller;
 
-import com.example.CityAutocomplete.service.search.CitySearch;
+import com.example.city.autocomplete.service.search.CitySearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;

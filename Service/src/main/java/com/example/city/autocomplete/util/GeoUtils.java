@@ -1,4 +1,4 @@
-package com.example.CityAutocomplete.util;
+package com.example.city.autocomplete.util;
 
 public class GeoUtils {
     // Copy from https://www.geodatasource.com/developers/java

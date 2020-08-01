@@ -1,6 +1,6 @@
-package com.example.CityAutocomplete.service;
+package com.example.city.autocomplete.service;
 
-import com.example.CityAutocomplete.util.GeoUtils;
+import com.example.city.autocomplete.util.GeoUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

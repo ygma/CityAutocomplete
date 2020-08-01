@@ -1,4 +1,4 @@
-package com.example.CityAutocomplete.controller;
+package com.example.city.autocomplete.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

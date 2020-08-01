@@ -1,6 +1,6 @@
-package com.example.CityAutocomplete.service.search;
+package com.example.city.autocomplete.service.search;
 
-import com.example.CityAutocomplete.service.City;
+import com.example.city.autocomplete.service.City;
 import lombok.Data;
 
 import java.util.*;

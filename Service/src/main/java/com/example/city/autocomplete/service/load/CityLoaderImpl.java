@@ -1,6 +1,6 @@
-package com.example.CityAutocomplete.service.load;
+package com.example.city.autocomplete.service.load;
 
-import com.example.CityAutocomplete.service.City;
+import com.example.city.autocomplete.service.City;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;

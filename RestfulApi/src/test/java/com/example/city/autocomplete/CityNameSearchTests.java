@@ -1,11 +1,12 @@
-package com.example.CityAutocomplete;
+package com.example.city.autocomplete;
 
-import com.example.CityAutocomplete.controller.SuggestionCity;
-import com.example.CityAutocomplete.controller.SuggestionResponse;
-import com.example.CityAutocomplete.service.City;
+import com.example.city.autocomplete.controller.SuggestionCity;
+import com.example.city.autocomplete.controller.SuggestionResponse;
+import com.example.city.autocomplete.service.City;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -39,7 +40,7 @@ class CityNameSearchTests extends ApiBaseTest {
                 "/suggestions?q=" + testCase.q,
                 SuggestionResponse.class);
 
-        assertThat(testCase.expected, containsInAnyOrder(actual.getSuggestions().toArray()));
+        MatcherAssert.assertThat(testCase.expected, containsInAnyOrder(actual.getSuggestions().toArray()));
     }
 
     static Stream<TestCase> dataProvider() {
