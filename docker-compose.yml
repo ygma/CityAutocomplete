@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  city-autocomplete:
+    build:
+      context: .
+      target: city-autocomplete
+    ports:
+      - "8080:8080"
