@@ -22,9 +22,13 @@ public class CityAutocompleteController {
             @RequestParam(value = "latitude", required = false) Float latitude,
             @RequestParam(value = "longitude", required = false) Float longitude) {
 
-        List<SuggestionCity> suggestionCities = citySearch.search(q)
+        List<SuggestionCity> suggestionCities = citySearch.search(q, latitude, longitude)
                 .stream()
-                .map(city -> new SuggestionCity(city.getName(), city.getLatitude(), city.getLongitude(), 1))
+                .map(city -> new SuggestionCity(
+                        city.getName(),
+                        city.getLatitude(),
+                        city.getLongitude(),
+                        city.getScore(latitude, longitude)))
                 .collect(Collectors.toList());
 
         return new SuggestionResponse(suggestionCities);

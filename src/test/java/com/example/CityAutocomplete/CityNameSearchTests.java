@@ -17,25 +17,24 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.mockito.Mockito.when;
 
 class CityNameSearchTests extends ApiBaseTest {
 
     @BeforeEach
     private void beforeEach() {
-        when(cityLoader.load()).thenReturn(asList(
+        mockCities(asList(
                 new City("Aaa", "Aaa", 0, 0),
                 new City("Aaa Aa", "Aaa Aa", 0, 0),
                 new City("Aba", "Aba", 0, 0),
                 new City("Abb", "Abb", 0, 0),
                 new City("Aca", "Aca", 0, 0)
-                ));
+        ));
     }
 
     @ParameterizedTest
     @MethodSource("dataProvider")
     @SneakyThrows
-    public void should_return_city_name_and_geo_location_when_city_name_is_match(TestCase testCase) {
+    public void should_return_city_name_and_geo_location_when_city_name_is_matched(TestCase testCase) {
         SuggestionResponse actual = callApi(
                 "/suggestions?q=" + testCase.q,
                 SuggestionResponse.class);

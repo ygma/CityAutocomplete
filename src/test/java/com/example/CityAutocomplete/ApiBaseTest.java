@@ -1,6 +1,8 @@
 package com.example.CityAutocomplete;
 
+import com.example.CityAutocomplete.service.City;
 import com.example.CityAutocomplete.service.load.CityLoader;
+import com.example.CityAutocomplete.service.search.CitySearch;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,6 +28,8 @@ public class ApiBaseTest {
     protected MockMvc mockMvc;
     @MockBean
     protected CityLoader cityLoader;
+    @Autowired
+    private CitySearch citySearch;
 
     @BeforeEach
     protected void beforeEachBase() {
@@ -38,5 +45,10 @@ public class ApiBaseTest {
                 .getContentAsString();
 
         return objectMapper.readValue(contentAsString, responseClass);
+    }
+
+    protected void mockCities(List<City> cities) {
+        when(cityLoader.load()).thenReturn(cities);
+        citySearch.initialize();
     }
 }

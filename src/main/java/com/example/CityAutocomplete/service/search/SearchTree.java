@@ -15,7 +15,7 @@ class SearchTree {
         initializeTree(cities);
     }
 
-    public List<City> search(String query) {
+    public List<City> search(String query, Float latitude, Float longitude) {
         TreeNode currentNode = this.tree;
         query = query.toLowerCase();
 
@@ -29,9 +29,10 @@ class SearchTree {
             }
             currentNode = childNodeMap.get(prefix);
         }
+
         return currentNode == null
                 ? Collections.emptyList()
-                : currentNode.getTop10Cities();
+                : currentNode.getTop10Cities(latitude, longitude);
     }
 
     private void initializeTree(List<City> cities) {
@@ -72,18 +73,20 @@ class SearchTree {
             this.prefix = prefix;
         }
 
-        public List<City> getTop10Cities() {
+        public List<City> getTop10Cities(Float latitude, Float longitude) {
             List<City> cities = new ArrayList<>();
             if (city != null) {
                 cities.add(city);
             }
 
             List<City> collect = childNodeMap.values().stream()
-                    .flatMap(node -> node.getTop10Cities().stream())
+                    .flatMap(node -> node.getTop10Cities(latitude, longitude).stream())
                     .collect(Collectors.toList());
 
             cities.addAll(collect);
-            return cities.stream().limit(10).collect(Collectors.toList());
+            return cities.stream()
+                    .sorted(Comparator.comparing(city -> ((City)city).getScore(latitude, longitude)).reversed())
+                    .limit(10).collect(Collectors.toList());
         }
     }
 }

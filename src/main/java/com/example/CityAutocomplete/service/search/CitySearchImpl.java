@@ -19,12 +19,18 @@ public class CitySearchImpl implements CitySearch {
 
     @PostConstruct
     public void postConstruct() {
+        initialize();
+    }
+
+    // For unit test
+    @Override
+    public void initialize() {
         List<City> cities = cityLoader.load();
         searchTree = new SearchTree(cities);
     }
 
     @Override
-    public List<City> search(String query) {
-        return searchTree.search(query);
+    public List<City> search(String query, Float latitude, Float longitude) {
+        return searchTree.search(query, latitude, longitude);
     }
 }
