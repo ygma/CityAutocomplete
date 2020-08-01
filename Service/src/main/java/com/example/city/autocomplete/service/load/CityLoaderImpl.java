@@ -6,14 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -22,11 +19,11 @@ public class CityLoaderImpl implements CityLoader {
     @Override
     @SneakyThrows
     public List<City> load() {
-        URL url = CityLoaderImpl.class.getClassLoader().getResource("cities15000.txt");
-        Path path = Paths.get(new URI(url.toString()));
+        InputStream inputStream = CityLoaderImpl.class.getClassLoader().getResourceAsStream("cities15000.txt");
 
-        try (Stream<String> stream = Files.lines(path)) {
-            return stream.map(line -> parseCity(line))
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+            return br.lines()
+                    .map(line -> parseCity(line))
                     .collect(Collectors.toList());
         }
     }
