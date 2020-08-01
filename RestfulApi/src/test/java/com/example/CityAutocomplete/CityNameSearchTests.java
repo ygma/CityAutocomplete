@@ -23,11 +23,11 @@ class CityNameSearchTests extends ApiBaseTest {
     @BeforeEach
     private void beforeEach() {
         mockCities(asList(
-                new City("Aaa", "Aaa", 0, 0),
-                new City("Aaa Aa", "Aaa Aa", 0, 0),
-                new City("Aba", "Aba", 0, 0),
-                new City("Abb", "Abb", 0, 0),
-                new City("Aca", "Aca", 0, 0)
+                new City("Aaa", "Aaa", 0, 0, "CA"),
+                new City("Aaa Aa", "Aaa Aa", 0, 0, "CA"),
+                new City("Aba", "Aba", 0, 0, "CA"),
+                new City("Abb", "Abb", 0, 0, "CA"),
+                new City("Aca", "Aca", 0, 0, "CA")
         ));
     }
 
@@ -46,16 +46,16 @@ class CityNameSearchTests extends ApiBaseTest {
         return Stream.of(
                 new TestCase("SomeRandomCityInTheMiddleOfNowhere", emptyList()),
                 new TestCase("Ab", asList(
-                        new SuggestionCity("Aba", 0, 0, 1),
-                        new SuggestionCity("Abb", 0, 0, 1))),
+                        new SuggestionCity("Aba, CA", 0, 0, 1),
+                        new SuggestionCity("Abb, CA", 0, 0, 1))),
                 new TestCase("ab", asList(
-                        new SuggestionCity("Aba", 0, 0, 1),
-                        new SuggestionCity("Abb", 0, 0, 1))),
+                        new SuggestionCity("Aba, CA", 0, 0, 1),
+                        new SuggestionCity("Abb, CA", 0, 0, 1))),
                 new TestCase("Abb", asList(
-                        new SuggestionCity("Abb", 0, 0, 1))),
+                        new SuggestionCity("Abb, CA", 0, 0, 1))),
                 new TestCase("Abbb", emptyList()),
                 new TestCase("Aaa A", asList(
-                        new SuggestionCity("Aaa Aa", 0, 0, 1)))
+                        new SuggestionCity("Aaa Aa, CA", 0, 0, 1)))
         );
     }
 

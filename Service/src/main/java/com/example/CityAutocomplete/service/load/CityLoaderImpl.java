@@ -33,13 +33,14 @@ public class CityLoaderImpl implements CityLoader {
 
     private City parseCity(String line) {
         String[] strings = line.split("\t");
-        if (strings.length < 6) {
+        if (strings.length < 9) {
             throw new IllegalArgumentException("Unknown city source");
         }
         return new City(
                 strings[1],
                 strings[2],
                 Float.parseFloat(strings[4]),
-                Float.parseFloat(strings[5]));
+                Float.parseFloat(strings[5]),
+                strings[8]);
     }
 }

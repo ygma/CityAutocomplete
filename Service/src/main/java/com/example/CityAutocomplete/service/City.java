@@ -14,6 +14,7 @@ public class City {
     private String asciiName;
     private float latitude;
     private float longitude;
+    private String country;
 
     public float getScore(Float latitude2, Float longitude2) {
         if (latitude2 == null || longitude2 == null) {

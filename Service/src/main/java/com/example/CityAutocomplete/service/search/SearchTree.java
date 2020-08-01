@@ -49,7 +49,7 @@ class SearchTree {
 
         for (int i = 0; i <= nameLength; i++) {
             if (i == nameLength) {
-                currentNode.setCity(city);
+                currentNode.getCities().add(city);
                 break;
             }
             String prefix = asciiName.substring(0, i + 1);
@@ -67,24 +67,23 @@ class SearchTree {
     private static class TreeNode {
         private String prefix;
         private Map<String, TreeNode> childNodeMap = new HashMap<>();
-        private City city;
+        private List<City> cities = new ArrayList<>();
 
         public TreeNode(String prefix) {
             this.prefix = prefix;
         }
 
         public List<City> getTop10Cities(Float latitude, Float longitude) {
-            List<City> cities = new ArrayList<>();
-            if (city != null) {
-                cities.add(city);
-            }
+            List<City> result = new ArrayList<>();
+
+            result.addAll(cities);
 
             List<City> collect = childNodeMap.values().stream()
                     .flatMap(node -> node.getTop10Cities(latitude, longitude).stream())
                     .collect(Collectors.toList());
 
-            cities.addAll(collect);
-            return cities.stream()
+            result.addAll(collect);
+            return result.stream()
                     .sorted(Comparator.comparing(city -> ((City)city).getScore(latitude, longitude)).reversed())
                     .limit(10).collect(Collectors.toList());
         }

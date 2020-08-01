@@ -21,8 +21,8 @@ class ScoreTests extends ApiBaseTest {
     @BeforeEach
     private void beforeEach() {
         mockCities(asList(
-                new City("Aba", "Aba", 1, 1),
-                new City("Abb", "Abb", 2, 2)));
+                new City("Aba", "Aba", 1, 1, "CA"),
+                new City("Abb", "Abb", 2, 2, "CA")));
     }
 
     @ParameterizedTest
@@ -44,8 +44,8 @@ class ScoreTests extends ApiBaseTest {
     static Stream<TestCase> dataProvider() {
         return Stream.of(
                 new TestCase("Ab", 1.1f, 1.1f, asList(
-                        new SuggestionCity("Aba", 1, 1, 1),
-                        new SuggestionCity("Abb", 2, 2, 1)))
+                        new SuggestionCity("Aba, CA", 1, 1, 1),
+                        new SuggestionCity("Abb, CA", 2, 2, 1)))
         );
     }
 

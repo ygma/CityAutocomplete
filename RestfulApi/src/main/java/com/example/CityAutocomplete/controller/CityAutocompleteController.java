@@ -25,7 +25,7 @@ public class CityAutocompleteController {
         List<SuggestionCity> suggestionCities = citySearch.search(q, latitude, longitude)
                 .stream()
                 .map(city -> new SuggestionCity(
-                        city.getName(),
+                        String.join(", ", city.getName(), city.getCountry()),
                         city.getLatitude(),
                         city.getLongitude(),
                         city.getScore(latitude, longitude)))
