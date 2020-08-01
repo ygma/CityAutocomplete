@@ -2,7 +2,7 @@
 
 ## Prerequisite
 
-- java & maven cli
+- java 1.8 & maven cli
 
 or
 
@@ -33,7 +33,7 @@ docker-compose down
 
 - IDE
 
-This is developed in Intellij and java 8, but it is supported to be run by any java IDE.
+This is developed in Intellij and java 8, but it is supposed to be run by any java IDE.
 (But I enabled lombok, sometimes it's a bit difficult to configure it in a IDE. )
 
 All the unit tests are under `RestfulApi` module.
