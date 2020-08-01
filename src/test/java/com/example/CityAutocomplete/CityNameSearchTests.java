@@ -3,15 +3,20 @@ package com.example.CityAutocomplete;
 import com.example.CityAutocomplete.controller.SuggestionCity;
 import com.example.CityAutocomplete.controller.SuggestionResponse;
 import com.example.CityAutocomplete.service.City;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 class CityNameSearchTests extends ApiBaseTest {
@@ -20,33 +25,45 @@ class CityNameSearchTests extends ApiBaseTest {
     private void beforeEach() {
         when(cityLoader.load()).thenReturn(asList(
                 new City("Aaa", "Aaa", 0, 0),
+                new City("Aaa Aa", "Aaa Aa", 0, 0),
                 new City("Aba", "Aba", 0, 0),
                 new City("Abb", "Abb", 0, 0),
                 new City("Aca", "Aca", 0, 0)
-        ));
+                ));
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("dataProvider")
     @SneakyThrows
-    public void should_return_and_empty_response_if_not_found() {
+    public void should_return_city_name_and_geo_location_when_city_name_is_match(TestCase testCase) {
         SuggestionResponse actual = callApi(
-                "/suggestions?q=SomeRandomCityInTheMiddleOfNowhere",
+                "/suggestions?q=" + testCase.q,
                 SuggestionResponse.class);
 
-        assertEquals(new SuggestionResponse(emptyList()), actual);
+        assertThat(testCase.expected, containsInAnyOrder(actual.getSuggestions().toArray()));
     }
 
-    @Test
-	@SneakyThrows
-    public void should_return_city_name_and_geo_location_when_city_name_is_match() {
-        SuggestionResponse actual = callApi(
-                "/suggestions?q=Ab",
-                SuggestionResponse.class);
+    static Stream<TestCase> dataProvider() {
+        return Stream.of(
+                new TestCase("SomeRandomCityInTheMiddleOfNowhere", emptyList()),
+                new TestCase("Ab", asList(
+                        new SuggestionCity("Aba", 0, 0, 1),
+                        new SuggestionCity("Abb", 0, 0, 1))),
+                new TestCase("ab", asList(
+                        new SuggestionCity("Aba", 0, 0, 1),
+                        new SuggestionCity("Abb", 0, 0, 1))),
+                new TestCase("Abb", asList(
+                        new SuggestionCity("Abb", 0, 0, 1))),
+                new TestCase("Abbb", emptyList()),
+                new TestCase("Aaa A", asList(
+                        new SuggestionCity("Aaa Aa", 0, 0, 1)))
+        );
+    }
 
-        SuggestionResponse expected = new SuggestionResponse(asList(
-				new SuggestionCity("Aba", 0, 0, 1),
-				new SuggestionCity("Abb", 0, 0, 1)));
-
-		assertThat(expected.getSuggestions(), containsInAnyOrder(actual.getSuggestions().toArray()));
+    @Data
+    @AllArgsConstructor
+    private static class TestCase {
+        private String q;
+        private List<SuggestionCity> expected;
     }
 }
