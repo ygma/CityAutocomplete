@@ -74,15 +74,15 @@ class SearchTree {
         }
 
         public List<City> getTop10Cities(Float latitude, Float longitude) {
-            List<City> result = new ArrayList<>();
 
-            result.addAll(cities);
+            List<City> result = new ArrayList<>(cities);
 
             List<City> collect = childNodeMap.values().stream()
                     .flatMap(node -> node.getTop10Cities(latitude, longitude).stream())
                     .collect(Collectors.toList());
 
             result.addAll(collect);
+
             return result.stream()
                     .sorted(Comparator.comparing(city -> ((City)city).getScore(latitude, longitude)).reversed())
                     .limit(10).collect(Collectors.toList());
